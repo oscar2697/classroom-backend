@@ -34,5 +34,6 @@ export const workoutsRelations = relations(workouts, ({ one, many }) => ({
 
 export type Departments = typeof departments.$inferSelect
 export type NewDepartments = typeof departments.$inferInsert
-export type Workouts = typeof departments.$inferSelect
-export type NewWorkouts = typeof departments.$inferInsert
+
+export type Workouts = typeof workouts.$inferSelect
+export type NewWorkouts = typeof workouts.$inferInsert
