@@ -1,9 +1,14 @@
 import express from 'express'
 import workoutsRouter from './routes/workouts'
 import cors from 'cors'
+import 'dotenv/config'
 
 const app = express()
 const PORT = 8000
+
+if (!process.env.FRONTEND_URL) {
+    console.warn('FRONTEND_URL not set, CORS may block requests')
+}
 
 app.use(cors({
     origin: process.env.FRONTEND_URL,

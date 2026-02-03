@@ -8,8 +8,8 @@ const router = express.Router()
 router.get('/', async (req, res) => {
     try {
         const { search, department, page = 1, limit = 10 } = req.query
-        const currentPage = Math.max(1, +page)
-        const limitPage = Math.max(1, +limit)
+        const currentPage = Math.max(1, Number(page) || 1)
+        const limitPage = Math.max(1, Math.min(Number(limit) || 10, 100))
         const offset = (currentPage - 1) * limitPage
         const filterConditions = []
 
@@ -26,6 +26,8 @@ router.get('/', async (req, res) => {
             filterConditions.push(
                 ilike(departments.name, `%${department}%`)
             )
+            const deptPattern = `%${String(department).replace(/[%_]/g, '\\$&')}%`
+            filterConditions.push(ilike(departments.name, deptPattern))
         }
 
         const whereClause = filterConditions.length > 0 ? and(...filterConditions) : undefined
