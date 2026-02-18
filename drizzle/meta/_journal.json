@@ -8,6 +8,13 @@
       "when": 1770075094829,
       "tag": "0000_misty_silver_centurion",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1771432018035,
+      "tag": "0001_aberrant_supreme_intelligence",
+      "breakpoints": true
     }
   ]
 }
