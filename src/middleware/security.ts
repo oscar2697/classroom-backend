@@ -23,7 +23,7 @@ const securityMiddleware = async (req: Request, res: Response, next: NextFunctio
                 break
             default:
                 limit = 5
-                message = 'Guest requent limit exceede (5 per minute). Please Sign Up for higher limits'
+                message = 'Guest request limit exceeded (5 per minute). Please Sign Up for higher limits'
         }
 
         const client = aj.withRule(
@@ -60,7 +60,7 @@ const securityMiddleware = async (req: Request, res: Response, next: NextFunctio
         }
 
         if (decision.isDenied() && decision.reason.isRateLimit()) {
-            return res.status(403).json({
+            return res.status(429).json({
                 error: 'Too many requests',
                 message
             })
