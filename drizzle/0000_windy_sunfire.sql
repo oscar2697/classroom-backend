@@ -1,3 +1,13 @@
+CREATE TABLE "departments" (
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "departments_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+	"code" varchar(50) NOT NULL,
+	"name" varchar(255) NOT NULL,
+	"description" varchar(255),
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "departments_code_unique" UNIQUE("code")
+);
+--> statement-breakpoint
 CREATE TABLE "member_workouts" (
 	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "member_workouts_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"member_id" text NOT NULL,
@@ -26,6 +36,17 @@ CREATE TABLE "workout_sessions" (
 --> statement-breakpoint
 CREATE TABLE "workout_status" (
 	"status" varchar(50) PRIMARY KEY NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE "workouts" (
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "workouts_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+	"department_id" integer NOT NULL,
+	"name" varchar(255) NOT NULL,
+	"code" varchar(50) NOT NULL,
+	"description" varchar(255),
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "workouts_code_unique" UNIQUE("code")
 );
 --> statement-breakpoint
 CREATE TABLE "account" (
@@ -88,6 +109,7 @@ ALTER TABLE "member_workouts" ADD CONSTRAINT "member_workouts_member_id_user_id_
 ALTER TABLE "member_workouts" ADD CONSTRAINT "member_workouts_workout_session_id_workout_sessions_id_fk" FOREIGN KEY ("workout_session_id") REFERENCES "public"."workout_sessions"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "workout_sessions" ADD CONSTRAINT "workout_sessions_workout_id_workouts_id_fk" FOREIGN KEY ("workout_id") REFERENCES "public"."workouts"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "workout_sessions" ADD CONSTRAINT "workout_sessions_trainer_id_user_id_fk" FOREIGN KEY ("trainer_id") REFERENCES "public"."user"("id") ON DELETE restrict ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "workouts" ADD CONSTRAINT "workouts_department_id_departments_id_fk" FOREIGN KEY ("department_id") REFERENCES "public"."departments"("id") ON DELETE restrict ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "account" ADD CONSTRAINT "account_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "session" ADD CONSTRAINT "session_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 CREATE INDEX "member_workouts_member_id_idx" ON "member_workouts" USING btree ("member_id");--> statement-breakpoint

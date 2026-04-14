@@ -17,17 +17,19 @@
   "dependencies": {
     "@arcjet/inspect": "^1.1.0",
     "@arcjet/node": "^1.1.0",
+    "@better-auth/drizzle-adapter": "^1.5.3",
     "@neondatabase/serverless": "^1.0.2",
+    "better-auth": "^1.5.3",
     "cors": "^2.8.6",
     "dotenv": "^17.2.3",
-    "drizzle-orm": "^0.45.1",
+    "drizzle-orm": "^0.41.0",
     "express": "^5.2.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^25.2.0",
-    "drizzle-kit": "^0.31.8",
+    "drizzle-kit": "^0.30.0",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }
