@@ -1,9 +1,10 @@
 import { relations } from "drizzle-orm"
-import { 
-    pgTable, 
-    text, 
-    timestamp, 
-    primaryKey, 
+import {
+    pgTable,
+    text,
+    timestamp,
+    boolean,
+    primaryKey,
     index,
     unique
 } from "drizzle-orm/pg-core"
@@ -21,7 +22,7 @@ export const user = pgTable('user', {
     id: text('id').primaryKey(),
     name: text('name').notNull(),
     email: text('email').notNull().unique(),
-    emailVerified: timestamp('email_verified'),
+    emailVerified: boolean('email_verified').default(false).notNull(),
     image: text('image'),
     role: text('role', { enum: ['member', 'trainer', 'admin'] }).default('member').notNull(),
     imageCldPubId: text('image_cld_pub_id'),

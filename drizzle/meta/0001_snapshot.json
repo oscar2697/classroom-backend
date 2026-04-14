@@ -1,6 +1,6 @@
 {
-  "id": "61584bf1-16d5-487b-a77e-6f71582b1c8d",
-  "prevId": "13c71a30-4fec-4a17-a856-f9e3306ccfe7",
+  "id": "855aab5e-b5fb-4b7e-99c9-7c75ea2641c8",
+  "prevId": "d620a49a-e5a3-4d56-8bc7-34b116d658aa",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -796,9 +796,10 @@
         },
         "email_verified": {
           "name": "email_verified",
-          "type": "timestamp",
+          "type": "boolean",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true,
+          "default": false
         },
         "image": {
           "name": "image",
