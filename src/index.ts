@@ -3,10 +3,10 @@ AgentAPI.config()
 
 import 'dotenv/config'
 import express from 'express'
-import workoutsRouter from './routes/workouts'
+import workoutsRouter from './routes/workouts.js'
 import cors from 'cors'
-import securityMiddleware from './middleware/security'
-import { auth } from './lib/auth'
+import securityMiddleware from './middleware/security.js'
+import { auth } from './lib/auth.js'
 import { toNodeHandler } from "better-auth/node"
 
 const app = express()
