@@ -87,7 +87,7 @@ CREATE TABLE "user" (
 	"id" text PRIMARY KEY NOT NULL,
 	"name" text NOT NULL,
 	"email" text NOT NULL,
-	"email_verified" timestamp,
+	"email_verified" boolean DEFAULT false NOT NULL,
 	"image" text,
 	"role" text DEFAULT 'member' NOT NULL,
 	"image_cld_pub_id" text,

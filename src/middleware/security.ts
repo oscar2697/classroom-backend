@@ -5,6 +5,9 @@ import { ArcjetNodeRequest, slidingWindow } from '@arcjet/node';
 const securityMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     if (process.env.NODE_ENV === 'test') return next()
 
+    // Skip Arcjet in development when not configured
+    if (!process.env.ARCJET_KEY) return next()
+
     try {
         const role: RateLimitRole = req.user?.role ?? 'guest'
 

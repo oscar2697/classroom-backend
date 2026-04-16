@@ -5,15 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1776197673056,
-      "tag": "0000_windy_sunfire",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1776197844954,
-      "tag": "0001_chunky_quicksilver",
+      "when": 1776296510615,
+      "tag": "0000_premium_gateway",
       "breakpoints": true
     }
   ]
