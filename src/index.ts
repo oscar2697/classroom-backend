@@ -4,6 +4,7 @@ AgentAPI.config()
 import 'dotenv/config'
 import express from 'express'
 import workoutsRouter from './routes/workouts.js'
+import classesRouter from './routes/classes.js'
 import usersRouter from './routes/users.js'
 import cors from 'cors'
 import securityMiddleware from './middleware/security.js'
@@ -31,6 +32,8 @@ app.use(securityMiddleware)
 
 app.use('/api/workouts', workoutsRouter)
 app.use('/api/users', usersRouter)
+app.use("/api/sessions", classesRouter)
+app.use("/api/workouts-sessions", classesRouter)
 app.use('/api/workouts', workoutsRouter)
 
 app.get('/', (req, res) => {
