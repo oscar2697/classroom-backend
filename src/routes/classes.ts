@@ -1,7 +1,7 @@
 import { and, desc, eq, getTableColumns, ilike, or, sql } from 'drizzle-orm'
 import express from 'express'
 import { db } from '../db/index.js'
-import { user, workouts, workoutSessions } from '../db/schema/index.js'
+import { departments, session, user, workouts, workoutSessions } from '../db/schema/index.js'
 
 const router = express.Router()
 
@@ -79,10 +79,44 @@ router.get('/', async (req, res) => {
     }
 })
 
+router.get('/:id', async (req, res) => {
+    const classId = Number(req.params.id)
+
+    if (!Number.isFinite(classId)) {
+        return res.status(400).json({ error: 'No Class Found.' })
+    }
+
+    const [classDetails] = await db
+        .select({
+            ...getTableColumns(workoutSessions),
+            workout: {
+                ...getTableColumns(workouts),
+            },
+            department: {
+                ...getTableColumns(departments),
+            },
+            trainer: {
+                ...getTableColumns(user)
+            }
+        })
+
+        .from(workoutSessions)
+        .leftJoin(workouts, eq(workoutSessions.workoutId, workouts.id))
+        .leftJoin(user, eq(workoutSessions.trainerId, user.id))
+        .leftJoin(departments, eq(workouts.departmentId, departments.id))
+        .where(eq(workoutSessions.id, classId))
+
+    if (!classDetails) {
+        return res.status(404).json({ error: 'No Class Found' })
+    }
+
+    res.status(200).json({ data: classDetails })
+})
+
 router.post('/', async (req, res) => {
     try {
         const [createdSession] = await db
-            .insert(workoutSessions)  
+            .insert(workoutSessions)
             .values({
                 name: req.body.name,
                 description: req.body.description,
