@@ -6,6 +6,8 @@ import express from 'express'
 import workoutsRouter from './routes/workouts.js'
 import classesRouter from './routes/classes.js'
 import usersRouter from './routes/users.js'
+import departmentsRouter from './routes/departments.js'
+import memberWorkoutsRouter from './routes/member-workouts.js'
 import cors from 'cors'
 import securityMiddleware from './middleware/security.js'
 import { auth } from './lib/auth.js'
@@ -30,11 +32,12 @@ app.use(express.json())
 
 app.use(securityMiddleware)
 
-app.use('/api/workouts', workoutsRouter)
+app.use('/api/departments', departmentsRouter)
 app.use('/api/users', usersRouter)
+app.use('/api/workouts', workoutsRouter)
 app.use("/api/sessions", classesRouter)
 app.use("/api/workouts-sessions", classesRouter)
-app.use('/api/workouts', workoutsRouter)
+app.use('/api/member-workouts', memberWorkoutsRouter)
 
 app.get('/', (req, res) => {
     res.json({ message: 'Classroom Backend API is running!' })
